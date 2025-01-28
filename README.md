@@ -10,7 +10,7 @@ To go step-by-step, we break the multiplicative group into a product using its p
 $` U_{126} \cong U_2 \times U_9 \times U_7 `$  
 Being prime powers, each $`U_{p^k}`$ is a cyclic group of order $`\phi(p^k)`$  
 $`U_2 \times U_9 \times U_7 \cong C_1 \times C_6 \times C_6 `$  
-The cyclic group of order 1 is trivial. Since 2 and 3 are coprime, $`C_7 \cong C_2  \times C_3 `$  
+The cyclic group of order 1 is trivial. Since 2 and 3 are coprime, $`C_6 \cong C_2  \times C_3 `$  
 $`C_1 \times C_6 \times C_6 \cong C_2 \times C_3 \times C_2 \times C_3  `$  
 We can represent $`C_2`$ in $`S_{10}`$ with the generator (1 2), $`C_3`$ with (3 4 5), $`C_2`$ with (6 7), and $`C_3`$ with (8 9 10).  
 
