@@ -46,21 +46,39 @@ This gives a method by which to calculate the size of symmetric group needed for
 
 ## Finding an Upper Bound
 
-To find the highest $` U_k `$ within $` S_n `$, we will find an upper bound for prime values of k, then consider the products of primes below this bound.
+To find the highest $` U_k `$ within $` S_n `$ we will find an upper bound for prime values of k, then consider the products of primes below this bound.
 
-### The case when k is prime
-
-We show that if k is an odd prime between the mth and m+1th primorials, then $`w_k \geq m\sqrt[m]{k-1}`$.  
+### Lemma 1: If k is an odd prime between the mth and m+1th primorials, then $`w_k \geq m(k-1)^\frac{1}{m}`$.  
 
 Given that k is prime, there is only 1 prime power: $`q_1 = k`$ itself. Therefore $`w_k`$ is simply the sum of prime powers of $`\phi(k) = k-1`$. Because k is less than the m+1th primorial, there are at most m prime powers of k-1.
 
-Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that $`w_k \geq r\sqrt[r]{k-1}`$. This is clear when r = 1. 
+Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that $`w_k \geq r(k-1)^\frac{1}{r}`$. This is clear when r = 1. 
 
-Let r = 2, with $`k = p_1p_2`$. Consider the function $`f(x) = x + \frac{k}{x}`$. To minimize the function we find $`f'(x) = 1 - \frac{k}{x^2}`$ and solve for 0:  
-### $`0 = 1 - \frac{k}{x^2} \rightarrow k = x^2 \rightarrow \sqrt{k} = x`$
-Therefore the function is minimal at $`f(\sqrt{k}) = \sqrt{k} + \frac{k}{\sqrt{k}} = 2\sqrt{k}`$ and so $`2\sqrt{k} \leq f(p_1) = w_k`$.  
+Let r = 2, with $`k-1 = p_1p_2`$. Consider the function $`f(x) = x + \frac{k-1}{x}`$. To minimize the function we find $`f'(x) = 1 - \frac{k-1}{x^2}`$ and solve for 0:  
+### $`0 = 1 - \frac{k-1}{x^2}   \longrightarrow   k-1 = x^2   \longrightarrow   \sqrt{k-1} = x`$
+Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`w_k = f(p_1 \geq) 2\sqrt{k-1}`$.  
 
-We now suppose that this holds for r-1. Using this induction hypothesis $`w_k = \displaystyle\sum p_i \geq p_1 + (r-1)\sqrt[r-1]{\frac{k}{p_1}}`$. We will consider the function $`g(x) = x + (r-1)\sqrt[r-1]{\frac{k}{x}}`$. To minimize, $`g\rq(x) = 1 - k/x^2(k/x)^{\frac{-(r-2)}{r-1}}`$
+We now suppose that this holds for r-1. Using this induction hypothesis $`w_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. To minimize, find the derivative:  
+### $`g'(x) = 1 - \frac{k-1}{x^2}(\frac{k-1}{x})^{\frac{-(r-2)}{r-1}} = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}`$  
+and then set to 0:  
+### $`0 = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}   \longrightarrow   \frac{k-1}{x^r} = 1   \longrightarrow   (k-1)^\frac{1}{r} = x`$  
+Thus g is minimal at $`(k-1)^\frac{1}{r}`$ and it follows that $`w_k \geq r(k-1)^\frac{1}{r}`$.  
+
+To conclude Lemma 1 it remains to show that $`r(k-1)^\frac{1}{r} \geq m(k-1)^\frac{1}{m}`$. It is sufficient to show that $`(m-1)(x)^\frac{1}{m-1} \geq m(x)^\frac{1}{m}`$ for all x greater than the mth primorial. We begin by setting these equal and solving for x:  
+### $`(m-1)x^\frac{1}{m-1} = mx^\frac{1}{m} \longrightarrow x^\frac{1}{m(m-1)} = \frac{m}{m-1} \longrightarrow x = (\frac{m}{m-1})^{m(m-1)}`$   
+We now show that $`(\frac{m}{m-1})^{m(m-1)}`$ is less than the mth primorial, using induction on m. This is only relevant when m > 1, so we begin by showing this explicitly for 2, 3, and 4.  
+  
+$`2^2 = 4 < p_2\# = 6`$  
+$`\frac{3}{2}^6 \approx 11.39 < p_3\# = 30`$  
+$`\frac{4}{3}^{12} \approx 31.57 < p_4\# = 210`$  
+  
+We now show that each following term increases by a factor less than 11. Since each following prime is at least 11, this proves the Lemma.
+### $`\frac{(\frac{m}{m-1})^{m(m-1)}}{(\frac{m-1}{m-2})^{(m-1)(m-2)}} = (\frac{m}{m-1})^{2(m-1)}(\frac{m(m-2)}{(m-1)^2})^{(m-1)(m-2)} < (\frac{m}{m-1})^{2(m-1)} < e^2 < 11`$
+
+This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$. We will denote this $`u_m`$.
+
+## Calculating terms below $`u_m`$
+
 
 
 
