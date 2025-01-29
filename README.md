@@ -42,7 +42,7 @@ Where $`2^a, q_1, q_2, ...`$ are the prime powers of k
 This gives a method by which to calculate the size of symmetric group needed for each $`U_k`$, which we will now apply to find an upper bound. We denote $`\displaystyle\sum\sum p_{i,j} = w_k`$ as the 
 'weight' of k, such that $`U_k \subseteq S_n `$ for any n $`\geq w_k`$.
 
-## Finding an Upper Bound
+## Finding an upper bound
 
 To find the highest $` U_k `$ within $` S_n `$ we will find an upper bound for prime values of k, then consider the products of primes below this bound.
 
@@ -54,7 +54,7 @@ Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that 
 
 Let r = 2, with $`k-1 = p_1p_2`$. Consider the function $`f(x) = x + \frac{k-1}{x}`$. To minimize the function we find $`f'(x) = 1 - \frac{k-1}{x^2}`$ and solve for 0:  
 ### $`0 = 1 - \frac{k-1}{x^2} `$ &nbsp; $`  \longrightarrow  `$ &nbsp; $` k-1 = x^2 `$ &nbsp; $`  \longrightarrow `$ &nbsp; $`  \sqrt{k-1} = x`$
-Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`w_k = f(p_1 \geq) 2\sqrt{k-1}`$.  
+Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`w_k = f(p_1) \geq 2\sqrt{k-1}`$.  
 
 We now suppose that this holds for r-1. Using this induction hypothesis $`w_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. To minimize, find the derivative:  
 ### $`g'(x) = 1 - \frac{k-1}{x^2}(\frac{k-1}{x})^{\frac{-(r-2)}{r-1}} = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}`$  
@@ -101,14 +101,24 @@ $`weight_{p_1} = w_p \leq p-1`$
 $`weight_{p_2} = w_{p^2} - w_p = p`$  
 $`weight_{p_a} = w_{p^a} - w_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
 
-So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`u_m`$. Fantastic! But we can't celebrate just yet.
+So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`u_m`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
 ### There is a big problem.
 This approach is grossly inefficient. Let's say we want to find the first 20 terms of the sequence. $`u_{19} \approx 20.43`$ so we must check all primes up to the 19th primorial, which is $`7.86 \times 10^{24}`$. Checking primes that high will take a long time, and is unnecessary. The 20th term is 5460, the highest prime factor of which is **13**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
 
-## The Incomplete Knapsack Algorithm
+## The Incomplete Knapsack algorithm
 
+This version of the algorithm is effective when the list of items is incomplete. We don't need to have information for all items, just for the *best* items. Specifically, the items with the highest cost, where cost = value/weight. The input of this algorithm is that such list, as well as an upper bound C for the cost of missing items. $`C \geq cost_j`$ for any $`item_j`$ not present in the list.
 
+First, we run the Knapsack algorithm on the list, which returns a sequence of candidate terms. We then try to validate each term by showing that it cannot be beaten by an optimal missing item, one with cost c. A term $`a_j`$ is valid if:  
+### $`value(a_j) \geq value(a_{j-i}) + Ci`$ &nbsp; for all i such that $`0 < i \leq j`$
+We can compute this more efficiently by just testing, which is sufficient if $`a_{j-1}`$ is valid
+### $`value(a_j) \geq value(a_{j-1}) + C`$
 
+Using this test, we step through each term until we find one that cannot be validated, and return all valid terms. So let's do try it out!
+### Results: 2, 6
+The third term cannot be validated, because it is also 6. It's equal to the second term. In order to validate this the upped bound C must be 0, meaning all primes are included in the list. The reason $`a_2 = a_3`$ is that there are no items with weight 1. There is nothing available to improve upon $`a_2`$. Let's introduce a new bound: L is the lightest possible missing item. If L > 1 then we shouldn't need to validate $`a_2`$ against $`a_3`$. The test is now:
+### $`value(a_j) \geq value(a_{j-i}) + Ci`$ &nbsp; for all i such that $`L \leq i \leq min(2L-1,j)`$
 
+Using this test we can validate thousands of terms of the sequence! We just need to find appropriate values for C and L.
 
-
+## Finding *another* upper bound
