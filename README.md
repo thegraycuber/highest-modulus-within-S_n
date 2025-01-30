@@ -102,8 +102,8 @@ $`weight_{p_2} = w_{p^2} - w_p = p`$
 $`weight_{p_a} = w_{p^a} - w_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
 
 So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`u_m`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
-### There is a big problem.
-This approach is grossly inefficient. Let's say we want to find the first 20 terms of the sequence. $`u_{19} \approx 20.43`$ so we must check all primes up to the 19th primorial, which is $`7.86 \times 10^{24}`$. Checking primes that high will take a long time, and is unnecessary. The 20th term is 5460, the highest prime factor of which is **13**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
+### There is a problem.
+This approach is grossly inefficient. We can find the first 100 or so terms of the sequence, but this approach can't get much further. $`u_{12} \approx 141.8`$ so to get 141 terms we must check all primes up to the 12th primorial, which is over 7 trillion. Checking primes that high will take a long time, and is unnecessary. The 141st term is **TODO**, the highest prime factor of which is **TODO**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
 
 ## The Incomplete Knapsack algorithm
 
@@ -122,3 +122,16 @@ The third term cannot be validated, because it is also 6. It's equal to the seco
 Using this test we can validate thousands of terms of the sequence! We just need to find appropriate values for C and L.
 
 ## Finding *another* upper bound
+
+$`u_m`$ works great for L, but C is not quite so simple. I don't even have an answer, just a guess. Using the notation $`p_m\#`$ for the mth primorial:
+
+### Conjecture 1: $`\frac{ln(p_m\#)}{u_m} > cost_k `$ for all $`k \geq p_m\#`$ and m > 1
+
+TODO check this further
+By Theorem 1 if $`p_m\# \leq k < p_{m+1}\#`$ then $`weight_k > u_m`$ and therefore $`cost_k = value_k/weight_k < ln(k)/u_m`$.  
+It remains to show that $`ln(p_m\#)/u_m > ln(p_{m+1}\#)/u_{m+1}`$ for all values of m. I have validated this for m < 100 but have not proved it generally.
+
+However, this conjecture is convincing if we view this inequality asymptotically. $`ln(p_m\#) \sim mln(m)`$ such that:
+### $`\frac{ln(p_m\#)}{u_m} `$ &nbsp; $` =`$ &nbsp; $` \frac{ln(p_m\#)}{m(p_m\#)^\frac{1}{m}} `$ &nbsp; ~ &nbsp; $`\frac{mln(m)}{me^\frac{(1+o(1))mlnm}{m}} `$ &nbsp; ~ &nbsp; $`\frac{ln(m)}{me^{1+o(1)}}`$
+
+By applying this conjecture we can find likely higher values of this sequence. 
