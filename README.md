@@ -123,15 +123,17 @@ Using this test we can validate thousands of terms of the sequence! We just need
 
 ## Finding *another* upper bound
 
-$`u_m`$ works great for L, but C is not quite so simple. I don't even have an answer, just a guess. Using the notation $`p_m\#`$ for the mth primorial:
+As shown in Theorem 1, for any prime k between the mth and m+1th primorials, $`p_m\# < k < p_{m+1}\#`$ we have a lower bound on the weight of k: $`m(k-1)^\frac{1}{m}`$. This gives us an upper bound on the cost (value/weight) of all k in this range:  
+### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}}`$  
+This upper bound would work great in practice but does not lend itself well to general proof. We would like to show that it is larger than the following upper bound:
+### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}} > \frac{ln(p_{m+2}\#)}{(m+1)p_{m+1}\#^\frac{1}{m+1}}`$
+This is not trivial as we are dealing with both the logarithm of and fractional power of primorials. However we can loosen this bound into a state that makes a proof more straightforward.
 
-### Conjecture 1: $`\frac{ln(p_m\#)}{u_m} > cost_k `$ for all $`k \geq p_m\#`$ and m > 1
+TODO m > 3 so demonstrate low cases
+### Theorem 2: For all prime $`k > p_m\# `$ we have $`cost_k < C_m`$ where
+### $`C_m = \frac{1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))}{Xm^2}`$
 
-TODO check this further
-By Theorem 1 if $`p_m\# \leq k < p_{m+1}\#`$ then $`weight_k > u_m`$ and therefore $`cost_k = value_k/weight_k < ln(k)/u_m`$.  
-It remains to show that $`ln(p_m\#)/u_m > ln(p_{m+1}\#)/u_{m+1}`$ for all values of m. I have validated this for m < 100 but have not proved it generally.
-
-However, this conjecture is convincing if we view this inequality asymptotically. $`ln(p_m\#) \sim mln(m)`$ such that:
-### $`\frac{ln(p_m\#)}{u_m} `$ &nbsp; $` =`$ &nbsp; $` \frac{ln(p_m\#)}{m(p_m\#)^\frac{1}{m}} `$ &nbsp; ~ &nbsp; $`\frac{mln(m)}{me^\frac{(1+o(1))mlnm}{m}} `$ &nbsp; ~ &nbsp; $`\frac{ln(m)}{me^{1+o(1)}}`$
-
-By applying this conjecture we can find likely higher values of this sequence. 
+To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):  
+$`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
+By [Theorem 2, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) for any m > 3 we have $`p_m < m(ln(m) + 2ln(ln(m)))`$ which gives a more explicit upper bound of:  
+$`ln(p_{m+1}\#) < 1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))`$
