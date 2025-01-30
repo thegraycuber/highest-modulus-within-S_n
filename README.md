@@ -15,7 +15,7 @@ We can represent $`C_2`$ in $`S_{10}`$ with the generator (1 2), $`C_3`$ with (3
 
 ### Second, there is no k > 126 such that $` U_k \subseteq S_{10} `$    
   
-This is harder to demonstrate. How do we know wihtout checking all integers? Well, higher moduli tend to have larger multiplicative groups, so we aim find an upper bound for a given n, and then just check up to that point. But in order to do that, we first should understand more generally how to determine if $` U_k \subseteq S_n `$  
+This is harder to demonstrate. How do we know without checking all integers? Well, higher moduli tend to have larger multiplicative groups, so we aim find an upper bound for a given n, and then just check up to that point. But in order to do that, we first should understand more generally how to determine if $` U_k \subseteq S_n `$  
 
 ## Abelian Subgroups of $` S_n `$
 
@@ -77,9 +77,9 @@ We now show that each following term increases by a factor less than 11. We do t
 To prove Theorem 1.1 we notice that $`(m+1)(p_{m+1}\#)^\frac{1}{m+1} > (m)(p_m\#)^\frac{1}{m}`$ since they are the geometric means of the first m+1 and m primes. Combined with Lemma 1.2, each k greater than the mth primorial is between some m+rth and m+r+1th primorials, and by induction on r: 
 ### $`weight_k \geq (m+r)(k-1)^\frac{1}{m+r} \geq (m+r)(p_{m+r}\#)^\frac{1}{m+r} \geq m(p_m\#)^\frac{1}{m}`$
 
-This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$. We will denote this $`u_m`$.
+This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$ since all higher primes will have a higher weight.
 
-## Calculating terms below $`u_m`$
+## Calculating terms below $`m(p_m\#)^\frac{1}{m}`$
 
 Finding terms of this sequence can be approached as a [0/1 Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem). This is a well-known optimal packing programming problem. Given some set of items, each with a weight and value, which items should be selected to maximize the value under a certain weight threshold? Applied to A380222 each item is some prime power $`p^a`$, the weight is $`weight_p^a`$ as described above, and the value is $`ln(p^a)`$ since the Knapsack problem uses values additively. 
 
@@ -99,15 +99,15 @@ $`item: 3_3,`$ &nbsp; $` weight_{3_3} = 6,`$ &nbsp; $` value_{3_3} = ln(3)`$
 $`item: 3_4,`$ &nbsp; $` weight_{3_4} = 18,`$ &nbsp; $` value_{3_4} = ln(3)`$   
 ...  
 
-The weights of the new are the differences between consectutive weights of the old items. $`weight_{3_3} = 6 = 11 - 5 = weight_{27} - weight_9`$  . This approach works because these differences are non-decreasing. If the algorithm selects $`3_2`$ but not $`3_1`$ there will be no issues since it has effectively set aside 3 elements of $`S_n`$ to represent $`U_3`$. Only 2 are needed, but perhaps there would be no better option than leaving one element unmoved. To demonstrate that this is non-decreasing, recall that $`w_k`$ is the sum of prime powers dividing $`phi(k)`$: 
+The weights of the new are the differences between consectutive weights of the old items. $`weight_{3_3} = 6 = 11 - 5 = weight_{27} - weight_9`$  . This approach works because these differences are non-decreasing. If the algorithm selects $`3_2`$ but not $`3_1`$ there will be no issues since it has effectively set aside 3 elements of $`S_n`$ to represent $`U_3`$. Only 2 are needed, but perhaps there would be no better option than leaving one element unmoved. To demonstrate that this is non-decreasing, recall that $`weight_k`$ is the sum of prime powers dividing $`phi(k)`$: 
 
 $`weight_{p_1} = weight_p \leq p-1`$  
 $`weight_{p_2} = weight_{p^2} - weight_p = p`$  
 $`weight_{p_a} = weight_{p^a} - weight_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
 
-So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`u_m`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
+So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`m(p_m\#)^\frac{1}{m}`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
 ### There is a problem.
-This approach is grossly inefficient. We can find the first 100 or so terms of the sequence, but this approach can't get much further. $`u_{12} \approx 141.8`$ so to get 141 terms we must check all primes up to the 12th primorial, which is over 7 trillion. Checking primes that high will take a long time, and is unnecessary. The 141st term is **TODO**, the highest prime factor of which is **TODO**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
+This approach is grossly inefficient. We can find the first 100 or so terms of the sequence, but this approach can't get much further. $`12(p_{12}\#)^\frac{1}{12} \approx 141.8`$ so to get 141 terms we must check all primes up to the 12th primorial, which is over 7 trillion. Checking primes that high will take a long time, and is unnecessary. The 141st term is **TODO**, the highest prime factor of which is **TODO**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
 
 ## The Incomplete Knapsack algorithm
 
@@ -127,23 +127,20 @@ Using this test we can validate thousands of terms of the sequence! We just need
 
 ## Finding *another* upper bound
 
-From Theorem 1 we know that $`weight_k \geq m(k-1)^\frac{1}{m}`$ for any prime k between the mth and m+1th primorials. We'll denote that here as $`p_m\# < k < p_{m+1}\#`$. 
+Take k to be a prime between the mth and m+1th primorials. We can place a lower bound on the weight as shown in Lemma 1.2: $`weight_k \geq m(k-1)^\frac{1}{m}`$, which gives the following upper bound on the cost:
+### $`\frac{ln(k)}{m(k-1)^\frac{1}{m}}`$  
+As a function of k, this is decreasing for all values greater than or equal to the mth primorial, so we get the following upper bound on all k such that $`p_m\# < k < p_{m+1}\#`$:
+### $`B_m = \frac{ln(p_m\#)}{mp_m\#^\frac{1}{m}}`$  
+This upper bound would work great in practice but does not lend itself well to general proof. To extend to all primes above the mth primorial we would like to show that it is larger than the following upper bound: $`B_m > B_{m+1}`$. We can check that this is true for small values of m > 1, but proving it generally is difficult as we are dealing with both the logarithm of and fractional power of primorials. However we can loosen this bound into a state that makes a proof more straightforward.
 
-As shown in Theorem 1, for any prime k between the mth and m+1th primorials, $`p_m\# < k < p_{m+1}\#`$, we have a lower bound of $`m(k-1)^\frac{1}{m} \leq weight_k`$. This gives us an upper bound on the cost (value/weight) of all k in this range:  
-### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}}`$  
-This upper bound would work great in practice but does not lend itself well to general proof. We would like to show that it is larger than the following upper bound:
-### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}} > \frac{ln(p_{m+2}\#)}{(m+1)p_{m+1}\#^\frac{1}{m+1}}`$
-This is not trivial as we are dealing with both the logarithm of and fractional power of primorials. However we can loosen this bound into a state that makes a proof more straightforward.
+### Theorem 2.1: For all prime $`k > p_m\# `$ with m > 3 we have $`cost_k < b_m`$ where
+### $`b_m = 1.5\frac{(m+1)(ln(m+1)+2ln(ln(m+1)))}{m^2}`$
 
-TODO m > 3 so demonstrate low cases
-### Theorem 2: For all prime $`k > p_m\# `$ we have $`cost_k < C_m`$ where
-### $`C_m = 1.5\frac{(m+1)(ln(m+1)+2ln(ln(m+1)))}{m^2}`$
-
-### Lemma 1: $`cost_k < C_m`$ for all prime k between the mth and m+1th primorials.
+### Lemma 2.2: $`cost_k < b_m`$ for all prime k between the mth and m+1th primorials, m > 3.
 
 To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):   
 ### $`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
-By [Theorem 2, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) for any m > 3 we have $`p_m < m(ln(m) + 2ln(ln(m)))`$ which gives a more explicit upper bound of:  
+By [Theorem 2, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) for any m > 3 we have $`p_{m+1} < (m+1)(ln(m+1) + 2ln(ln(m+1)))`$ which gives a more explicit upper bound of:  
 ### $`ln(p_{m+1}\#) < 1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))`$   
 
 We now turn our attention to the lower bound of the weight of k: $`mp_m\#^\frac{1}{m}`$. By [Theorem 5.2, Dusart](https://arxiv.org/pdf/1002.0442), for m > 1:  
@@ -152,11 +149,15 @@ Using the lower bound $`p_m > mln(m)`$ from [Theorem 1, Rosser](https://londmath
 ### $`mp_m\#^\frac{1}{m} > me^{\frac{1}{m}(1-\frac{3.965}{ln(p_m)^2})p_m} > me^{(1-\frac{3.965}{ln(mln(m))^2})ln(m)}`$.  
 For all $`m \geq 264, \frac{-3.965ln(m)}{ln(mln(m))^2} > ln(0.66) `$ such that:  
 ### $`mp_m\#^\frac{1}{m} > me^{ln(m)+ln(0.66)} = 0.66m^2`$
-TODO computer check for m < 264
+TODO We verify by computer that this is also true for values $`264 > m > 3`$.
 
-Combinining the upper value bound and lower weight bound, we prove Lemma 1.
+Combinining the upper value bound and lower weight bound, we prove Lemma 2.2. We now view $`b_m`$ as a function over the reals, and notice that it is decreasing for all x > 3. This proves Theorem 2.1:
+### $`b(x) = 1.5\frac{(x+1)(ln(x+1)+2ln(ln(x+1)))}{x^2}`$
 
-### Lemma 2: $`C_m > C_{m+1}`$ for all m TODO find this range
+Great, we can now be confident using $`b_m`$ as a value for the cost upper bound C in the Incomplete Knapsack algorithm. But it doesn't work well in practice as this bound is too weak. The prime with the highest cost is 3: $`cost_3 = 0.55`$ so in order to get the first few terms we need $`b_m < 0.55`$ meaning m > 13. This does not improve upon the issue with the finite knapsack approach, we still need to check prime values in the trillions!  
+
+However, we can effectively approach this problem using both bounds $`B_m`$ and $`b_m`$. 
+
 
 
 
