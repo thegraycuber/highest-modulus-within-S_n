@@ -39,30 +39,31 @@ Where $`2^a, q_1, q_2, ...`$ are the prime powers of k
   $`p_{i,1}, p_{i,2}, ... `$ be the prime powers of odd $`\phi(q_i)`$  
   and for $`2^a`$: $`p_{0,1} = 2, p_{0,2} = 2^{a-2}`$ if a > 2, $`p_{0,1} = 2`$ if a = 2, and there be no such $`p_{0,j}`$ if a < 2.  
 
-This gives a method by which to calculate the size of symmetric group needed for each $`U_k`$, which we will now apply to find an upper bound. We denote $`\displaystyle\sum\sum p_{i,j} = w_k`$ as the 
-'weight' of k, such that $`U_k \subseteq S_n `$ for any n $`\geq w_k`$.
+This gives a method by which to calculate the size of symmetric group needed for each $`U_k`$, which we will now apply to find an upper bound. We denote $`\displaystyle\sum\sum p_{i,j} = weight_k`$ such that $`U_k \subseteq S_n `$ for any n $`\geq weight_k`$.
 
 ## Finding an upper bound
 
 To find the highest $` U_k `$ within $` S_n `$ we will find an upper bound for prime values of k, then consider the products of primes below this bound.
 
-### Theorem 1: If k is an odd prime between the mth and m+1th primorials, then $`w_k \geq m(k-1)^\frac{1}{m}`$.  
+### Theorem 1.1: If k is a prime greater than the mth primorial $`p_m\#`$ then $`weight_k \geq m(p_m\#)^\frac{1}{m}`$.
 
-Given that k is prime, there is only 1 prime power: $`q_1 = k`$ itself. Therefore $`w_k`$ is simply the sum of prime powers of $`\phi(k) = k-1`$. Because k is less than the m+1th primorial, there are at most m prime powers of k-1.
+### Lemma 1.2: If k is a prime between the mth and m+1th primorials, then $`weight_k \geq m(k-1)^\frac{1}{m}`$.  
 
-Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that $`w_k \geq r(k-1)^\frac{1}{r}`$. This is clear when r = 1. 
+Given that k is prime, there is only 1 prime power: $`q_1 = k`$ itself. Therefore $`weight_k`$ is simply the sum of prime powers of $`\phi(k) = k-1`$. Because k is less than the m+1th primorial, there are at most m prime powers of k-1.
+
+Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that $`weight_k \geq r(k-1)^\frac{1}{r}`$. This is clear when r = 1. 
 
 Let r = 2, with $`k-1 = p_1p_2`$. Consider the function $`f(x) = x + \frac{k-1}{x}`$. To minimize the function we find $`f'(x) = 1 - \frac{k-1}{x^2}`$ and solve for 0:  
 ### $`0 = 1 - \frac{k-1}{x^2} `$ &nbsp; $`  \longrightarrow  `$ &nbsp; $` k-1 = x^2 `$ &nbsp; $`  \longrightarrow `$ &nbsp; $`  \sqrt{k-1} = x`$
-Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`w_k = f(p_1) \geq 2\sqrt{k-1}`$.  
+Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`weight_k = f(p_1) \geq 2\sqrt{k-1}`$.  
 
-We now suppose that this holds for r-1. Using this induction hypothesis $`w_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. To minimize, find the derivative:  
+We now suppose that this holds for r-1. Using this induction hypothesis $`weight_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. To minimize, find the derivative:  
 ### $`g'(x) = 1 - \frac{k-1}{x^2}(\frac{k-1}{x})^{\frac{-(r-2)}{r-1}} = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}`$  
 and then set to 0:  
 ### $`0 = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}  `$ &nbsp; $` \longrightarrow  `$ &nbsp; $` \frac{k-1}{x^r} = 1  `$ &nbsp; $` \longrightarrow  `$ &nbsp; $` (k-1)^\frac{1}{r} = x`$  
-Thus g is minimal at $`(k-1)^\frac{1}{r}`$ and it follows that $`w_k \geq r(k-1)^\frac{1}{r}`$.  
+Thus g is minimal at $`(k-1)^\frac{1}{r}`$ and it follows that $`weight_k \geq r(k-1)^\frac{1}{r}`$.  
 
-To conclude Theorem 1 it remains to show that $`r(k-1)^\frac{1}{r} \geq m(k-1)^\frac{1}{m}`$. It is sufficient to show that $`(m-1)(x)^\frac{1}{m-1} \geq m(x)^\frac{1}{m}`$ for all x greater than the mth primorial. We begin by setting these equal and solving for x:  
+To conclude the lemma it remains to show that $`r(k-1)^\frac{1}{r} \geq m(k-1)^\frac{1}{m}`$. It is sufficient to show that $`(m-1)(x)^\frac{1}{m-1} \geq m(x)^\frac{1}{m}`$ for all x greater than the mth primorial. We begin by setting these equal and solving for x:  
 ### $`(m-1)x^\frac{1}{m-1} = mx^\frac{1}{m}`$ &nbsp; $` \longrightarrow `$ &nbsp; $`x^\frac{1}{m(m-1)} = \frac{m}{m-1} `$ &nbsp; $`\longrightarrow`$ &nbsp; $` x = (\frac{m}{m-1})^{m(m-1)}`$   
 We now show that $`(\frac{m}{m-1})^{m(m-1)}`$ is less than the mth primorial, using induction on m. This is only relevant when m > 1, so we begin by showing this explicitly for 2, 3, and 4.  
   
@@ -70,14 +71,17 @@ $`2^2 = 4 < p_2\# = 6`$
 $`\frac{3}{2}^6 \approx 11.39 < p_3\# = 30`$  
 $`\frac{4}{3}^{12} \approx 31.57 < p_4\# = 210`$  
   
-We now show that each following term increases by a factor less than 11. We do this using the limit definition of e to show that the factor is less than $`e^2`$. Since each following prime is at least 11, this proves the theorem.
+We now show that each following term increases by a factor less than 11. We do this using the limit definition of e to show that the factor is less than $`e^2`$. Since each following prime is at least 11, this proves the lemma.
 ### $`\frac{(\frac{m}{m-1})^{m(m-1)}}{(\frac{m-1}{m-2})^{(m-1)(m-2)}} `$ &nbsp; $`=`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}(\frac{m(m-2)}{(m-1)^2})^{(m-1)(m-2)} `$ &nbsp; $`<`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}`$ &nbsp; $` < e^2 < 11`$
+
+To prove Theorem 1.1 we notice that $`(m+1)(p_{m+1}\#)^\frac{1}{m+1} > (m)(p_m\#)^\frac{1}{m}`$ since they are the geometric means of the first m+1 and m primes. Combined with Lemma 1.2, each k greater than the mth primorial is between some m+rth and m+r+1th primorials, and by induction on r: 
+### $`weight_k \geq (m+r)(k-1)^\frac{1}{m+r} \geq (m+r)(p_{m+r}\#)^\frac{1}{m+r} \geq m(p_m\#)^\frac{1}{m}`$
 
 This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$. We will denote this $`u_m`$.
 
 ## Calculating terms below $`u_m`$
 
-Finding terms of this sequence can be approached as a [0/1 Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem). This is a well-known optimal packing programming problem. Given some set of items, each with a weight and value, which items should be selected to maximize the value under a certain weight threshold? Applied to A380222 each item is some prime power $`p^a`$, the weight is $`w_p^a`$ as described above, and the value is $`ln(p^a)`$ since the Knapsack problem uses values additively. 
+Finding terms of this sequence can be approached as a [0/1 Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem). This is a well-known optimal packing programming problem. Given some set of items, each with a weight and value, which items should be selected to maximize the value under a certain weight threshold? Applied to A380222 each item is some prime power $`p^a`$, the weight is $`weight_p^a`$ as described above, and the value is $`ln(p^a)`$ since the Knapsack problem uses values additively. 
 
 But notice, each item is a *prime power*, not just a prime. The 5th term is 18. We do need to check the higher powers of primes. This creates a problem for the Knapsack algorithm - we shouldn't allow more than one power from the same prime, but the standard algorithm does not account for any such restrictions. We *could* modify it to allow this, but instead will proceed with a different solution. Rather than using an item to represent each power of a prime, $`p, p^2, p^3 ...`$, we will have a sequence of items each being just p, the combination of which makes the higher powers. For example with the powers of 3, instead of using:  
 
@@ -97,9 +101,9 @@ $`item: 3_4,`$ &nbsp; $` weight_{3_4} = 18,`$ &nbsp; $` value_{3_4} = ln(3)`$
 
 The weights of the new are the differences between consectutive weights of the old items. $`weight_{3_3} = 6 = 11 - 5 = weight_{27} - weight_9`$  . This approach works because these differences are non-decreasing. If the algorithm selects $`3_2`$ but not $`3_1`$ there will be no issues since it has effectively set aside 3 elements of $`S_n`$ to represent $`U_3`$. Only 2 are needed, but perhaps there would be no better option than leaving one element unmoved. To demonstrate that this is non-decreasing, recall that $`w_k`$ is the sum of prime powers dividing $`phi(k)`$: 
 
-$`weight_{p_1} = w_p \leq p-1`$  
-$`weight_{p_2} = w_{p^2} - w_p = p`$  
-$`weight_{p_a} = w_{p^a} - w_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
+$`weight_{p_1} = weight_p \leq p-1`$  
+$`weight_{p_2} = weight_{p^2} - weight_p = p`$  
+$`weight_{p_a} = weight_{p^a} - weight_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
 
 So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`u_m`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
 ### There is a problem.
@@ -123,7 +127,9 @@ Using this test we can validate thousands of terms of the sequence! We just need
 
 ## Finding *another* upper bound
 
-As shown in Theorem 1, for any prime k between the mth and m+1th primorials, $`p_m\# < k < p_{m+1}\#`$ we have a lower bound on the weight of k: $`m(k-1)^\frac{1}{m}`$. This gives us an upper bound on the cost (value/weight) of all k in this range:  
+From Theorem 1 we know that $`weight_k \geq m(k-1)^\frac{1}{m}`$ for any prime k between the mth and m+1th primorials. We'll denote that here as $`p_m\# < k < p_{m+1}\#`$. 
+
+As shown in Theorem 1, for any prime k between the mth and m+1th primorials, $`p_m\# < k < p_{m+1}\#`$, we have a lower bound of $`m(k-1)^\frac{1}{m} \leq weight_k`$. This gives us an upper bound on the cost (value/weight) of all k in this range:  
 ### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}}`$  
 This upper bound would work great in practice but does not lend itself well to general proof. We would like to show that it is larger than the following upper bound:
 ### $`\frac{ln(p_{m+1}\#)}{mp_m\#^\frac{1}{m}} > \frac{ln(p_{m+2}\#)}{(m+1)p_{m+1}\#^\frac{1}{m+1}}`$
@@ -131,9 +137,26 @@ This is not trivial as we are dealing with both the logarithm of and fractional 
 
 TODO m > 3 so demonstrate low cases
 ### Theorem 2: For all prime $`k > p_m\# `$ we have $`cost_k < C_m`$ where
-### $`C_m = \frac{1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))}{Xm^2}`$
+### $`C_m = 1.5\frac{(m+1)(ln(m+1)+2ln(ln(m+1)))}{m^2}`$
 
-To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):  
-$`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
+### Lemma 1: $`cost_k < C_m`$ for all prime k between the mth and m+1th primorials.
+
+To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):   
+### $`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
 By [Theorem 2, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) for any m > 3 we have $`p_m < m(ln(m) + 2ln(ln(m)))`$ which gives a more explicit upper bound of:  
-$`ln(p_{m+1}\#) < 1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))`$
+### $`ln(p_{m+1}\#) < 1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))`$   
+
+We now turn our attention to the lower bound of the weight of k: $`mp_m\#^\frac{1}{m}`$. By [Theorem 5.2, Dusart](https://arxiv.org/pdf/1002.0442), for m > 1:  
+### $`ln(p_m\#) = \vartheta(p_m) > (1-\frac{3.965}{ln(p_m)^2})p_m`$.  
+Using the lower bound $`p_m > mln(m)`$ from [Theorem 1, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) we get:  
+### $`mp_m\#^\frac{1}{m} > me^{\frac{1}{m}(1-\frac{3.965}{ln(p_m)^2})p_m} > me^{(1-\frac{3.965}{ln(mln(m))^2})ln(m)}`$.  
+For all $`m \geq 264, \frac{-3.965ln(m)}{ln(mln(m))^2} > ln(0.66) `$ such that:  
+### $`mp_m\#^\frac{1}{m} > me^{ln(m)+ln(0.66)} = 0.66m^2`$
+TODO computer check for m < 264
+
+Combinining the upper value bound and lower weight bound, we prove Lemma 1.
+
+### Lemma 2: $`C_m > C_{m+1}`$ for all m TODO find this range
+
+
+
