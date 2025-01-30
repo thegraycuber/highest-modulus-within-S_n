@@ -75,7 +75,7 @@ We now show that each following term increases by a factor less than 11. We do t
 ### $`\frac{(\frac{m}{m-1})^{m(m-1)}}{(\frac{m-1}{m-2})^{(m-1)(m-2)}} `$ &nbsp; $`=`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}(\frac{m(m-2)}{(m-1)^2})^{(m-1)(m-2)} `$ &nbsp; $`<`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}`$ &nbsp; $` < e^2 < 11`$
 
 To prove Theorem 1.1 we notice that $`(m+1)(p_{m+1}\#)^\frac{1}{m+1} > (m)(p_m\#)^\frac{1}{m}`$ since they are the geometric means of the first m+1 and m primes. Combined with Lemma 1.2, each k greater than the mth primorial is between some m+rth and m+r+1th primorials, and by induction on r: 
-### $`weight_k \geq (m+r)(k-1)^\frac{1}{m+r} \geq (m+r)(p_{m+r}\#)^\frac{1}{m+r} \geq m(p_m\#)^\frac{1}{m}`$
+### $`weight_k `$ &nbsp; $` \geq `$ &nbsp; $` (m+r)(k-1)^\frac{1}{m+r}`$ &nbsp; $`  \geq `$ &nbsp; $` (m+r)(p_{m+r}\#)^\frac{1}{m+r} `$ &nbsp; $` \geq `$ &nbsp; $` m(p_m\#)^\frac{1}{m}`$
 
 This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$ since all higher primes will have a higher weight.
 
