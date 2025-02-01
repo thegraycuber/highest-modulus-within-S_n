@@ -45,25 +45,19 @@ This gives a method by which to calculate the size of symmetric group needed for
 
 To find the highest $` U_k `$ within $` S_n `$ we will find an upper bound for prime values of k, then consider the products of primes below this bound.
 
-### Theorem 1.1: If k is a prime greater than the mth primorial $`p_m\#`$ then $`weight_k \geq m(p_m\#)^\frac{1}{m}`$.
+### Theorem 1: If k is a prime greater than the mth primorial $`p_m\#`$ then $`weight_k \geq m(p_m\#)^\frac{1}{m}`$.
 
-### Lemma 1.2: If k is a prime between the mth and m+1th primorials, then $`weight_k \geq m(k-1)^\frac{1}{m}`$.  
+We first show that if k is a prime between the mth and m+1th primorials, then $`weight_k \geq m(k-1)^\frac{1}{m}`$.
 
 Given that k is prime, there is only 1 prime power: $`q_1 = k`$ itself. Therefore $`weight_k`$ is simply the sum of prime powers of $`\phi(k) = k-1`$. Because k is less than the m+1th primorial, there are at most m prime powers of k-1.
 
 Suppose k-1 has r prime powers $`p_1, ... p_r`$. We show by induction on r that $`weight_k \geq r(k-1)^\frac{1}{r}`$. This is clear when r = 1. 
 
-Let r = 2, with $`k-1 = p_1p_2`$. Consider the function $`f(x) = x + \frac{k-1}{x}`$. To minimize the function we find $`f'(x) = 1 - \frac{k-1}{x^2}`$ and solve for 0:  
-### $`0 = 1 - \frac{k-1}{x^2} `$ &nbsp; $`  \longrightarrow  `$ &nbsp; $` k-1 = x^2 `$ &nbsp; $`  \longrightarrow `$ &nbsp; $`  \sqrt{k-1} = x`$
-Therefore the function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`weight_k = f(p_1) \geq 2\sqrt{k-1}`$.  
+Let r = 2, with $`k-1 = p_1p_2`$. Consider the function $`f(x) = x + \frac{k-1}{x}`$. The function is minimal at $`f(\sqrt{k-1}) = 2\sqrt{k-1}`$ and so $`weight_k = f(p_1) \geq 2\sqrt{k-1}`$.  
 
-We now suppose that this holds for r-1. Using this induction hypothesis $`weight_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. To minimize, find the derivative:  
-### $`g'(x) = 1 - \frac{k-1}{x^2}(\frac{k-1}{x})^{\frac{-(r-2)}{r-1}} = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}`$  
-and then set to 0:  
-### $`0 = 1 - (\frac{k-1}{x^r})^{\frac{1}{r-1}}  `$ &nbsp; $` \longrightarrow  `$ &nbsp; $` \frac{k-1}{x^r} = 1  `$ &nbsp; $` \longrightarrow  `$ &nbsp; $` (k-1)^\frac{1}{r} = x`$  
-Thus g is minimal at $`(k-1)^\frac{1}{r}`$ and it follows that $`weight_k \geq r(k-1)^\frac{1}{r}`$.  
+We now suppose that this holds for r-1. Using this induction hypothesis $`weight_k = \displaystyle\sum p_i \geq p_1 + (r-1)(k-1/p_1)^\frac{1}{r-1}`$. We will consider the function $`g(x) = x + (r-1)(k-1/x)^\frac{1}{r-1}`$. g is minimal at $`(k-1)^\frac{1}{r}`$ and it follows that $`weight_k \geq r(k-1)^\frac{1}{r}`$.  
 
-To conclude the lemma it remains to show that $`r(k-1)^\frac{1}{r} \geq m(k-1)^\frac{1}{m}`$. It is sufficient to show that $`(m-1)(x)^\frac{1}{m-1} \geq m(x)^\frac{1}{m}`$ for all x greater than the mth primorial. We begin by setting these equal and solving for x:  
+It remains to show that $`r(k-1)^\frac{1}{r} \geq m(k-1)^\frac{1}{m}`$. It is sufficient to show that $`(m-1)(x)^\frac{1}{m-1} \geq m(x)^\frac{1}{m}`$ for all x greater than the mth primorial. We begin by setting these equal and solving for x:  
 ### $`(m-1)x^\frac{1}{m-1} = mx^\frac{1}{m}`$ &nbsp; $` \longrightarrow `$ &nbsp; $`x^\frac{1}{m(m-1)} = \frac{m}{m-1} `$ &nbsp; $`\longrightarrow`$ &nbsp; $` x = (\frac{m}{m-1})^{m(m-1)}`$   
 We now show that $`(\frac{m}{m-1})^{m(m-1)}`$ is less than the mth primorial, using induction on m. This is only relevant when m > 1, so we begin by showing this explicitly for 2, 3, and 4.  
   
@@ -71,10 +65,10 @@ $`2^2 = 4 < p_2\# = 6`$
 $`\frac{3}{2}^6 \approx 11.39 < p_3\# = 30`$  
 $`\frac{4}{3}^{12} \approx 31.57 < p_4\# = 210`$  
   
-We now show that each following term increases by a factor less than 11. We do this using the limit definition of e to show that the factor is less than $`e^2`$. Since each following prime is at least 11, this proves the lemma.
+We now show that each following term increases by a factor less than 11. We do this using the limit definition of e to show that the factor is less than $`e^2`$. Since each following prime is at least 11, this proves the case when k is between the mth and m+1th primorials:  
 ### $`\frac{(\frac{m}{m-1})^{m(m-1)}}{(\frac{m-1}{m-2})^{(m-1)(m-2)}} `$ &nbsp; $`=`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}(\frac{m(m-2)}{(m-1)^2})^{(m-1)(m-2)} `$ &nbsp; $`<`$ &nbsp; $` (\frac{m}{m-1})^{2(m-1)}`$ &nbsp; $` < e^2 < 11`$
 
-To prove Theorem 1.1 we notice that $`(m+1)(p_{m+1}\#)^\frac{1}{m+1} > (m)(p_m\#)^\frac{1}{m}`$ since they are the geometric means of the first m+1 and m primes. Combined with Lemma 1.2, each k greater than the mth primorial is between some m+rth and m+r+1th primorials, and by induction on r: 
+To prove Theorem 1 we notice that $`(m+1)(p_{m+1}\#)^\frac{1}{m+1} > (m)(p_m\#)^\frac{1}{m}`$ since they are the geometric means of the first m+1 and m primes. Each k greater than the mth primorial is between some m+rth and m+r+1th primorials, so by induction on r: 
 ### $`weight_k `$ &nbsp; $` \geq `$ &nbsp; $` (m+r)(k-1)^\frac{1}{m+r}`$ &nbsp; $`  \geq `$ &nbsp; $` (m+r)(p_{m+r}\#)^\frac{1}{m+r} `$ &nbsp; $` \geq `$ &nbsp; $` m(p_m\#)^\frac{1}{m}`$
 
 This gives us an upper bound. Using only primes below the mth primorial, we can calculate all terms of this sequence below $`m(p_m\#)^\frac{1}{m}`$ since all higher primes will have a higher weight.
@@ -105,9 +99,9 @@ $`weight_{p_1} = weight_p \leq p-1`$
 $`weight_{p_2} = weight_{p^2} - weight_p = p`$  
 $`weight_{p_a} = weight_{p^a} - weight_{p^{a-1}} = (p-1)p^{a-2}`$ &nbsp; for a > 2
 
-So to implement to Knapsack algorithm, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`m(p_m\#)^\frac{1}{m}`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
+So to implement to Knapsack algorithm, which is done in highest_modulus_within_s_n.py, we prepare a list of items by checking all primes less than some mth primorial, and for each prime add a rows $`p_1, p_2, ...`$ until some $`weight_{p_j}`$ is found that exceeds $`m(p_m\#)^\frac{1}{m}`$. Then we input that list into the Knapsack algorithm and get our sequence. Fantastic! But we can't celebrate just yet.
 ### There is a problem.
-This approach is grossly inefficient. We can find the first 100 or so terms of the sequence, but this approach can't get much further. $`12(p_{12}\#)^\frac{1}{12} \approx 141.8`$ so to get 141 terms we must check all primes up to the 12th primorial, which is over 7 trillion. Checking primes that high will take a long time, and is unnecessary. The 141st term is **TODO**, the highest prime factor of which is **TODO**. A more effcient approach is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
+This approach is inefficient. We can find the first 100 or so terms of the sequence, but this approach can't get much further. $`12(p_{12}\#)^\frac{1}{12} \approx 141.8`$ so to get 141 terms we must check *all* primes up to the 12th primorial, which is over 7 trillion. Checking primes that high will take a long time, and is unnecessary. The 141st term is 375 159 113 055 066 740 400, the highest prime factor of which is only 421. A more effcient approach to find higher terms is a modified version of the algorithm that I call the 'Incomplete Knapsack'.
 
 ## The Incomplete Knapsack algorithm
 
@@ -127,16 +121,16 @@ Using this test we can validate thousands of terms of the sequence! We just need
 
 ## Finding *another* upper bound
 
-Take k to be a prime between the mth and m+1th primorials. We can place a lower bound on the weight as shown in Lemma 1.2: $`weight_k \geq m(k-1)^\frac{1}{m}`$, which gives the following upper bound on the cost:
+Take k to be a prime between the mth and m+1th primorials. We can place a lower bound on the weight as shown in the proof Theorem 1: $`weight_k \geq m(k-1)^\frac{1}{m}`$, which gives the following upper bound on the cost:
 ### $`\frac{ln(k)}{m(k-1)^\frac{1}{m}}`$  
 As a function of k, this is decreasing for all values greater than or equal to the mth primorial, so we get the following upper bound on all k such that $`p_m\# < k < p_{m+1}\#`$:
 ### $`B_m = \frac{ln(p_m\#)}{mp_m\#^\frac{1}{m}}`$  
 This upper bound would work great in practice but does not lend itself well to general proof. To extend to all primes above the mth primorial we would like to show that it is larger than the following upper bound: $`B_m > B_{m+1}`$. We can check that this is true for small values of m > 1, but proving it generally is difficult as we are dealing with both the logarithm of and fractional power of primorials. However we can loosen this bound into a state that makes a proof more straightforward.
 
-### Theorem 2.1: For all prime $`k > p_m\# `$ with m > 3 we have $`cost_k < b_m`$ where
+### Theorem 2: For all prime $`k > p_m\# `$ with m > 3 we have $`cost_k < b_m`$ where
 ### $`b_m = 1.5\frac{(m+1)(ln(m+1)+2ln(ln(m+1)))}{m^2}`$
 
-### Lemma 2.2: $`cost_k < b_m`$ for all prime k between the mth and m+1th primorials, m > 3.
+We first show that $`cost_k < b_m`$ for all prime k between the mth and m+1th primorials, m > 3.
 
 To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):   
 ### $`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
@@ -149,15 +143,13 @@ Using the lower bound $`p_m > mln(m)`$ from [Theorem 1, Rosser](https://londmath
 ### $`mp_m\#^\frac{1}{m} > me^{\frac{1}{m}(1-\frac{3.965}{ln(p_m)^2})p_m} > me^{(1-\frac{3.965}{ln(mln(m))^2})ln(m)}`$.  
 For all $`m \geq 264, \frac{-3.965ln(m)}{ln(mln(m))^2} > ln(0.66) `$ such that:  
 ### $`mp_m\#^\frac{1}{m} > me^{ln(m)+ln(0.66)} = 0.66m^2`$
-TODO We verify by computer that this is also true for values $`264 > m > 3`$.
+We verify by computer that this is also true for values $`264 > m > 3`$.
 
-Combinining the upper value bound and lower weight bound, we prove Lemma 2.2. We now view $`b_m`$ as a function over the reals, and notice that it is decreasing for all x > 3. This proves Theorem 2.1:
+Combinining the upper value bound and lower weight bound, we prove this for k between the mth and m+1th primorials. We now view $`b_m`$ as a function over the reals, and notice that it is decreasing for all x > 3. This proves Theorem 2:
 ### $`b(x) = 1.5\frac{(x+1)(ln(x+1)+2ln(ln(x+1)))}{x^2}`$
 
-Great, we can now be confident using $`b_m`$ as a value for the cost upper bound C in the Incomplete Knapsack algorithm. But it doesn't work well in practice as this bound is too weak. The prime with the highest cost is 3: $`cost_3 = 0.55`$ so in order to get the first few terms we need $`b_m < 0.55`$ meaning m > 13. This does not improve upon the issue with the finite knapsack approach, we still need to check prime values in the trillions!  
+Great, we can now be confident using $`b_m`$ as a value for the cost upper bound C in the Incomplete Knapsack algorithm. But it doesn't work well in practice as this bound is too weak. The prime with the highest cost is 3: $`cost_3 = 0.55`$ so in order to get the first few terms we need $`b_m < 0.55`$ meaning m > 13. This does not improve upon the issue with the finite knapsack approach, we still need to check all prime values up to a trillion!  
 
-However, we can effectively approach this problem using both bounds $`B_m`$ and $`b_m`$. 
+However, we can effectively approach this problem using both bounds $`B_m`$ and $`b_m`$. We select the desired m based upon how many primes to check, and calculate the stronger bound $`B_m`$. We then check all values j starting at m+1, verifying that $`B_j < B_m`$ until we find some j for which $`b_j < B_m`$. This confirms the validity of $`B_m`$ as an upper bound on the cost for all primes above the mth primorial. We do this confirmation and find the primes within the rust script. This is then run through the incomplete knapsack algorithm using A380222.py.  
 
-
-
-
+### Using this approach, we can confirm over 21 thousand terms of the sequence in just a matter of minutes!
