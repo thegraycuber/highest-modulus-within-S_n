@@ -10,6 +10,9 @@ weight_p^a is the minimum number of elements of a permutation group needed to ex
 This is equal to the sum of the prime powers that divide the totient of p^a
 
 There will be some real number r such that every possible row with such that ln(p^a)/weight_p^a > r is included in the output
+
+We still want to include as many rows as possible that are below r, since they will only help to confirm the terms of the sequence.
+This is particularly useful when they have low weights. We don't want to lower the weight bound.
 */
 
 use std::{fs::File, u128};
@@ -218,6 +221,7 @@ fn generate_prime_weights(primorial_index: usize,file_path: &str){
     // this verifies the assumption that bounds.cost is a true upper bound of item cost. 
     // the stronger bound is good for finding many terms, but is not proved to extend to infinity.
     // the weaker bound is too high, but once valid it extends for all future primorials
+    // there is more information on this at the end of the readme
     loop{
         primorial_log += (prime_values[test_index as usize] as f64).ln();
         test_index += 1.0;
@@ -235,11 +239,14 @@ fn generate_prime_weights(primorial_index: usize,file_path: &str){
     }
     
     // create rows for powers of 2 separately since they're a little different, and so we don't perform prime tests on even numbers
+    // these first 3 rows correspond to 4, 8, and 16. U_2 is trivial so it is not included.
+    // U_4 is a 2 cycle and needs 2 elements, U_8 is 2 2 cycles, so needs an additional 2. U_16 is a 2 and a 4, so another 2.
     let mut items: Vec<(u128,usize)> = vec![
         (2,2),
         (2,2),
         (2,2)
     ];
+    // From then on, for 2^a, we get a 2 and a 2^(a-2) cycle, for an additional 2^(a-3) elements
     let mut pow_of_2: usize = 4;
     while pow_of_2 <= bounds.weight{
         items.push((2,pow_of_2));
@@ -275,6 +282,7 @@ fn generate_prime_weights(primorial_index: usize,file_path: &str){
     for item in items{
         csv_writer.write_record(&[item.0.to_string(),item.1.to_string()]).expect("Unable to write record");
     }
+
     println!("weight bound: {}  cost bound: {} ",bounds.weight,bounds.cost);
 
 }
@@ -339,10 +347,11 @@ fn recursive_prime_weights(
 
 }
 
-
 fn main(){
     //let now = time::Instant::now();
     generate_prime_weights(14,"A380222_factors.csv");
     //println!("{}",now.elapsed().as_millis());
 }
 
+// PAY ATTENTION TO THE VALUES IN THE FINAL ROW PRINTED.
+// THESE MUST BE INPUT INTO THE PYTHON FILE FOR THE KNAPSACK ALGORITHM TO WORK CORRECTLY
