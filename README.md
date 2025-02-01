@@ -1,4 +1,4 @@
-# WIP Highest $` U_k `$ within $` S_n `$
+# Highest $` U_k `$ within $` S_n `$
 This repository is intended to calculate terms for [A380222](https://oeis.org/A380222) - Highest integer k such that the multiplicative group modulo k is a subgroup of the symmetric group $`S_n`$.  
 
 ## Introduction
