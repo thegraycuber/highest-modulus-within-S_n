@@ -132,7 +132,7 @@ This upper bound would work great in practice but does not lend itself well to g
 
 We first show that $`cost_k < b_m`$ for all prime k between the mth and m+1th primorials, m > 3.
 
-To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):   
+To demostrate this, we first loosen the upper bound on the value of k. Given that k is less than the m+1th primorial we have $`value_k < ln(p_{m+1}\#)`$. By [Proposition 5.1, Dusart](https://arxiv.org/pdf/1002.0442):   
 ### $`ln(p_{m+1}\#) = \vartheta(p_{m+1}) < 1.00003(p_{m+1})`$.  
 By [Theorem 2, Rosser](https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-45.1.21) for any m > 3 we have $`p_{m+1} < (m+1)(ln(m+1) + 2ln(ln(m+1)))`$ which gives a more explicit upper bound of:  
 ### $`ln(p_{m+1}\#) < 1.00003(m+1)(ln(m+1)+2ln(ln(m+1)))`$   
