@@ -112,7 +112,7 @@ First, we run the Knapsack algorithm on the list, which returns a sequence of ca
 We can compute this more efficiently by just testing, which is sufficient if $`a_{j-1}`$ is valid
 ### $`value(a_j) \geq value(a_{j-1}) + C`$
 
-Using this test, we step through each term until we find one that cannot be validated, and return all valid terms. So let's do try it out!
+Using this test, we step through each term until we find one that cannot be validated, and return all valid terms. So let's try it out!
 ### Results: 2, 6
 The third term cannot be validated, because it is also 6. It's equal to the second term. In order to validate this the upped bound C must be 0, meaning all primes are included in the list. The reason $`a_2 = a_3`$ is that there are no items with weight 1. There is nothing available to improve upon $`a_2`$. Let's introduce a new bound: L is the lightest possible missing item. If L > 1 then we shouldn't need to validate $`a_2`$ against $`a_3`$. The test is now:
 ### $`value(a_j) \geq value(a_{j-i}) + Ci`$ &nbsp; for all i such that $`L \leq i \leq min(2L-1,j)`$
